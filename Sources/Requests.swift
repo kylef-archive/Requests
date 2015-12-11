@@ -9,7 +9,12 @@ public enum RequestError : ErrorType {
 
 
 func createRequest(method: String, path: String, hostname: String, headers: [Header], body: String? = nil) -> RequestType {
-  let requestsHeaders: [Header] = [("Host", hostname), ("Connection", "close")]
+  var requestsHeaders: [Header] = [("Host", hostname), ("Connection", "close")]
+
+  if let body = body {
+    requestsHeaders.append(("Content-Length", "\(body.utf8.count)"))
+  }
+
   return Request(method: method, path: path, headers: requestsHeaders + headers, body: body)
 }
 
