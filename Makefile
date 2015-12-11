@@ -7,7 +7,7 @@ TARGET=x86_64-apple-macosx10.10
 SWIFTC=swiftc -target $(TARGET) -sdk $(SDK) -Xlinker -all_load
 endif
 
-SPECS=URL
+SPECS=URL HTTPParser
 SPEC_FILES=$(foreach spec,$(SPECS),Tests/$(spec)Spec.swift)
 
 requests:
@@ -18,9 +18,10 @@ test-dependencies:
 	@echo "Building Test Dependencies"
 	@cd Tests/Packages && swift build
 
-run-tests: requests test-dependencies $(SPEC_FILES)
+run-tests: requests test-dependencies Tests/main.swift $(SPEC_FILES)
 	@echo "Building specs"
 	@$(SWIFTC) -o run-tests \
+		Tests/main.swift \
 		$(SPEC_FILES) \
 		-I.build/debug \
 		-ITests/Packages/.build/debug \
