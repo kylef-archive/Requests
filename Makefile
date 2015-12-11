@@ -7,7 +7,7 @@ TARGET=x86_64-apple-macosx10.10
 SWIFTC=swiftc -target $(TARGET) -sdk $(SDK) -Xlinker -all_load
 endif
 
-SPECS=URL HTTPParser
+SPECS=URL HTTPParser Request
 SPEC_FILES=$(foreach spec,$(SPECS),Tests/$(spec)Spec.swift)
 
 requests:
