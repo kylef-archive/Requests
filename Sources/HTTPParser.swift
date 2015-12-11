@@ -51,8 +51,8 @@ class HTTPParser {
     var components = top.split("\r\n")
     let requestLine = components.removeFirst()
     components.removeLast()
-    let responseComponents = requestLine.split(" ", maxSplit: 3)
-    if responseComponents.count != 3 {
+    let responseComponents = requestLine.split(" ")
+    if responseComponents.count < 3 {
       throw HTTPParserError.Unknown
     }
 
