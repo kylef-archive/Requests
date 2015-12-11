@@ -20,7 +20,7 @@ public func request(method method: String, url: String, headers: [(String, Strin
   try socket.connect(url.hostname, port: url.port)
 
   socket.send("\(method) \(url.path) HTTP/1.1\r\n")
-  socket.send("Host: \(url.hostname)")
+  socket.send("Host: \(url.hostname)\r\n")
   socket.send("Connection: close\r\n")
   if let headers = headers {
     for (key, value) in headers {
