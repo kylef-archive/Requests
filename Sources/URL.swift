@@ -15,15 +15,15 @@ struct URL {
     }
 
     scheme = parts[0]
-    let parts1 = parts[1].split("/", maxSplit: 1)
-    if parts1.count != 2 {
+    let parts1 = parts[1].split("/")
+    if parts1.count < 2 {
       hostname = ""
       port = 80
       path = ""
       return nil
     }
 
-    path = "/" + parts1[1]
+    path = "/" + parts1[1..<parts1.count].joinWithSeparator("/")
 
     let address = parts1[0]
 
