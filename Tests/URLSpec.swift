@@ -18,6 +18,10 @@ func describeURL() {
       $0.it("can parse the path") {
         try expect(url?.path) == "/posts"
       }
+
+      $0.it("defaults HTTP port to 80") {
+        try expect(url?.port) == 80
+      }
     }
   }
 }
