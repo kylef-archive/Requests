@@ -14,7 +14,7 @@ requests:
 	@echo "Building Requests"
 	@swift build
 
-build-tests: requests Tests/main.swift $(SPEC_FILES)
+run-tests: requests Tests/main.swift $(SPEC_FILES)
 	@echo "Building specs"
 	@$(SWIFTC) -o run-tests \
 		Tests/main.swift \
@@ -25,5 +25,5 @@ build-tests: requests Tests/main.swift $(SPEC_FILES)
 		-Xlinker .build/debug/Inquiline.a \
 		-Xlinker .build/debug/Nest.a
 
-test: build-tests
+test: run-tests
 	./run-tests
