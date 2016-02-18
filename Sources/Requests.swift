@@ -2,6 +2,9 @@ import Nest
 import Inquiline
 
 
+public typealias Header = (String, String)
+
+
 public enum RequestError : ErrorType {
   case InvalidURL
   case UnsupportedScheme(String)
@@ -32,7 +35,7 @@ func sendRequest(socket: Socket, request: RequestType) {
 }
 
 
-public func request(method method: String, url: String, headers: [(String, String)]? = nil, body: String? = nil) throws -> Response {
+public func request(method method: String, url: String, headers: [Header]? = nil, body: String? = nil) throws -> Response {
   guard let url = URL(string: url) else {
     throw RequestError.InvalidURL
   }
@@ -53,24 +56,3 @@ public func request(method method: String, url: String, headers: [(String, Strin
 
   return response
 }
-
-
-public func head(url: String, parameters: [String: String]? = nil, headers: [(String, String)]? = nil) throws -> Response {
-  // TODO encoded parameters
-  return try request(method: "HEAD", url: url, headers: headers)
-}
-
-
-public func get(url: String, parameters: [String: String]? = nil, headers: [(String, String)]? = nil) throws -> Response {
-  // TODO encoded parameters
-  return try request(method: "GET", url: url, headers: headers)
-}
-
-
-public func delete(url: String, parameters: [String: String]? = nil, headers: [(String, String)]? = nil) throws -> Response {
-  // TODO encoded parameters
-  return try request(method: "DELETE", url: url, headers: headers)
-}
-
-
-// TODO, build post, patch, convinience
