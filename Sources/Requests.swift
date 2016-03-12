@@ -18,7 +18,7 @@ func createRequest(method: String, path: String, hostname: String, headers: [Hea
     requestsHeaders.append(("Content-Length", "\(body.utf8.count)"))
   }
 
-  return Request(method: method, path: path, headers: requestsHeaders + headers, body: body)
+  return Request(method: method, path: path, headers: requestsHeaders + headers, content: body)
 }
 
 
@@ -29,8 +29,10 @@ func sendRequest(socket: Socket, request: RequestType) {
   }
   socket.write("\r\n")
 
-  if let body = request.body {
-    socket.write(body)
+  if var body = request.body {
+    while let chunk = body.next() {
+      socket.write(chunk)
+    }
   }
 }
 

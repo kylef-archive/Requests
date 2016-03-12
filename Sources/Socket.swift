@@ -122,6 +122,12 @@ class Socket {
     }
   }
 
+  func write(output: [UInt8]) {
+    output.withUnsafeBufferPointer { bytes in
+      system_write(descriptor, bytes.baseAddress, bytes.count)
+    }
+  }
+
   func read(bytes: Int) throws -> [CChar] {
     let data = Data(capacity: bytes)
     let bytes = system_read(descriptor, data.bytes, data.capacity)

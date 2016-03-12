@@ -22,7 +22,21 @@ func describeHTTPParser() {
       try expect(response.status.rawValue) == 200
       try expect(response["Content-Length"]) == "12"
       try expect(response["Content-Type"]) == "text/plain"
-      try expect(response.body) == "Hello World!"
+
+      guard var payload = response.body else {
+        throw failure("response has no payload")
+      }
+      var body = [CChar]()
+      while let chunk = payload.next() {
+        body.appendContentsOf(chunk.map({ return CChar($0) }))
+      }
+      body.append(0)
+      try body.withUnsafeBufferPointer { buffer in
+        guard let string = String.fromCString(buffer.baseAddress) else {
+          throw failure("response payload is broken")
+        }
+        try expect(string) == "Hello World!"
+      }
     }
   }
 }

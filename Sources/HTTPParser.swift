@@ -91,7 +91,7 @@ class HTTPParser {
       body = String.fromCString(buffer + [0])
     }
 
-    return Response(status, headers: headers, body: body)
+    return Response(status, headers: headers, content: body)
   }
 
   func parseHeaders(headers: [String]) -> [Header] {

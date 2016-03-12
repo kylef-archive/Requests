@@ -15,7 +15,7 @@ func describeSendRequest() {
     }
 
     $0.it("sends the HTTP request to the server") {
-      let request = Request(method: "GET", path: "/path", headers: [], body: "Hello World")
+      let request = Request(method: "GET", path: "/path", headers: [], content: "Hello World")
       sendRequest(outSocket, request: request)
 
       let message = String.fromCString((try inSocket.read(512)) + [0])
