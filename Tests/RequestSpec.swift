@@ -16,7 +16,7 @@ func describeHTTPRequest() {
     }
 
     $0.it("can send a request") {
-      let request = Request(method: "GET", path: "/test", headers: [("Test-Header", "Test Value")], body: "testing")
+      let request = Request(method: "GET", path: "/test", headers: [("Test-Header", "Test Value")], content: "testing")
       sendRequest(outSocket, request: request)
 
       let requestString = String.fromCString(try inSocket.read(2048) + [0])
